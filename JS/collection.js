@@ -15,61 +15,61 @@ const staticProducts = [
   {
     name: "Boys Denim Set",
     price: 15000,
-    image: "/image/Children Flower Boat Shoes Girl Cute Bow Princess Sneakers Spring and Autumn Kids Casual Running.jpg",
+    image: "../image/Children Flower Boat Shoes Girl Cute Bow Princess Sneakers Spring and Autumn Kids Casual Running.jpg",
     category: "boys"
   },
   {
     name: "Boys Native Wear",
     price: 18000,
-    image: "/image/32228953579102604.jpg",
+    image: "../image/32228953579102604.jpg",
     category: "boys"
   },
   {
     name: "Girls Party Dress",
     price: 20000,
-    image: "/image/32228953579102604.jpg",
+    image: "../image/32228953579102604.jpg",
     category: "girls"
   },
   {
     name: "Princess Gown",
     price: 22000,
-    image: "/image/SHEIN.jpg",
+    image: "../image/SHEIN.jpg",
     category: "girls"
   },
   {
     name: "Kids Sneakers",
     price: 12000,
-    image: "/image/Disney LED Casual Sneakers.jpg",
+    image: "../image/Disney LED Casual Sneakers.jpg",
     category: "shoes"
   },
   {
     name: "School Shoes",
     price: 14000,
-    image: "/image/Chaussures _ Chaussures & talons femme.jpg",
+    image: "../image/Chaussures _ Chaussures & talons femme.jpg",
     category: "shoes"
   },
   {
     name: "School Backpack",
     price: 10000,
-    image: "/image/New Cute Cartoon Style Children Backpack.jpg",
+    image: "../image/New Cute Cartoon Style Children Backpack.jpg",
     category: "bags"
   },
   {
     name: "Travel Bag",
     price: 17000,
-    image: "/image/288582288643177444.jpg",
+    image: "../image/288582288643177444.jpg",
     category: "bags"
   },
   {
     name: "Kids Wristwatch",
     price: 8000,
-    image: "/image/VTech Peppa Pig Learning Watch, Purple.jpg",
+    image: "../image/VTech Peppa Pig Learning Watch, Purple.jpg",
     category: "accessories"
   },
   {
     name: "Hair Accessories Set",
     price: 5000,
-    image: "/image/6Pcs_Set New Solid Ribbon Bowknot Hair Clips For Cute Baby Girls Handmade Bows Hairpin Barrettes Headwear Kids Hair Accessories.jpg",
+    image: "../image/6Pcs_Set New Solid Ribbon Bowknot Hair Clips For Cute Baby Girls Handmade Bows Hairpin Barrettes Headwear Kids Hair Accessories.jpg",
     category: "accessories"
   }
 ];

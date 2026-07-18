@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout — OTIZKIDDIESWORLD</title>
-    <link rel="stylesheet" href="../css/checkout.css">
+    <link rel="stylesheet" href="../CSS/checkout.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://js.paystack.co/v1/inline.js"></script>
-    <script src="/js/loader.js"></script>
+    <script src="../JS/loader.js"></script>
     <!-- REQUIRED: checkout.js calls window.OtizFirebase.* everywhere (placeOrder,
          onAuthStateChanged, submitMessage, etc). That object only exists once this
          script runs. Without it, orders silently fail to save — see the
          console.warn in checkout.js's saveOrderToFirestore(). -->
-    <script type="module" src="/js/firebase-service.js"></script>
+    <script type="module" src="../JS/firebase-service.js"></script>
 </head>
 <body>
 
@@ -289,7 +289,7 @@
     const storedPaystackKey = localStorage.getItem("paystackPublicKey") || localStorage.getItem("paystackTestPublicKey") || "";
     window.PAYSTACK_PUBLIC_KEY = window.PAYSTACK_PUBLIC_KEY || storedPaystackKey || "";
 </script>
-<script type="module" src="../js/checkout.js"></script>
+<script type="module" src="../JS/checkout.js"></script>
 </body>
 
 </html>
