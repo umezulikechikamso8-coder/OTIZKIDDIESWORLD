@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTIZKIDDIESWORLD - Create Account</title>
+
+<link rel="stylesheet" href="/css/signup.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="signup-container">
+
+<div class="signup-card">
+
+<div class="brand">
+
+<img src="/image/WhatsApp Image 2026-06-20 at 2.26.59 AM.jpeg" alt="Logo">
+
+<h1>OTIZKIDDIESWORLD</h1>
+
+<p>Create your account and start shopping.</p>
+
+</div>
+
+<form id="signupForm">
+
+<div class="input-group">
+
+<label>Full Name</label>
+
+<input
+type="text"
+id="fullname"
+placeholder="Enter your full name"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Email Address</label>
+
+<input
+type="email"
+id="email"
+placeholder="Enter your email"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Phone Number</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="Enter phone number"
+required>
+
+</div>
+
+<div class="input-group">
+
+<label>Password</label>
+
+<div class="password-box">
+
+<input
+type="password"
+id="password"
+placeholder="Create password"
+required>
+
+<i class="fas fa-eye" id="showPassword"></i>
+
+</div>
+
+</div>
+
+<div class="input-group">
+
+<label>Confirm Password</label>
+
+<div class="password-box">
+
+<input
+type="password"
+id="confirmPassword"
+placeholder="Confirm password"
+required>
+
+
+<i class="fas fa-eye" id="showConfirm"></i>
+
+</div>
+
+<!-- <div class="input-group">
+    <label>Profile Picture</label>
+    <input type="file" id="profileImage" accept="image/*">
+</div> -->
+
+<div class="input-group">
+    <label>Country</label>
+
+    <select id="country" required>
+        <option value="">Select Country</option>
+        <option>Nigeria</option>
+        <option>Ghana</option>
+        <option>South Africa</option>
+        <option>Kenya</option>
+        <option>United Kingdom</option>
+        <option>United States</option>
+        <option>Canada</option>
+    </select>
+</div>
+
+</div>
+<div class="strength-container">
+    <div id="strength-bar"></div>
+</div>
+
+<p id="strength-text"></p>
+
+<div class="terms">
+
+<label>
+
+<input type="checkbox" required>
+
+I agree to the Terms & Conditions
+
+</label>
+
+</div>
+
+<button type="submit">
+  Create Account
+</button>
+<div class="social-login">
+
+<!-- <button type="button" class="google-btn">
+<i class="fab fa-google"></i>
+Sign Up With Google
+</button> -->
+
+<!-- <button type="button" class="facebook-btn">
+<i class="fab fa-facebook-f"></i>
+Sign Up With Facebook
+</button> -->
+
+</div>
+
+<div class="login-link">
+
+Already have an account?
+
+<a href="/HTML/signin.html">
+Sign In
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<script type="module" src="/js/signup.js"></script>
+
+</body>
+</html>
+<div id="recaptcha-container" style="display:none"></div>

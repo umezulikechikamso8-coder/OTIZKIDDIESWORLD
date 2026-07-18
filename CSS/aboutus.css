@@ -1,0 +1,379 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+:root{
+--primary:#2563eb;
+--dark:#111827;
+--light:#ffffff;
+--gray:#f3f4f6;
+}
+body{
+    background:var(--gray);
+}
+a{
+    text-decoration: none;
+}
+.logo span{
+    text-decoration: none;
+        font-weight: bold;
+    font-size: 1.2rem;
+
+}
+.navbar{
+background:white;
+padding:5px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo img{
+width:60px;
+height:60px;
+border-radius:50%;
+}
+
+.logo h2{
+color:#2563eb;
+}
+
+.nav-links{
+display:flex;
+list-style:none;
+gap:20px;
+flex-wrap: wrap;
+}
+
+.nav-links a{
+text-decoration:none;
+color:black;
+}
+
+.hero{
+height:60vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(
+rgba(0,0,0,.75),
+rgba(0,0,0,.75)
+),
+url(/image/Peaceful\ Serene\ Sunrise\ 🌅🌊.jpg);
+background-size:cover;
+background-position:center;
+}
+
+.hero-content h1{
+font-size:3rem;
+color:white;
+margin-bottom:10px;
+}
+
+.hero-content p{
+color:white;
+font-size:1.2rem;
+}
+
+.about-section{
+padding:80px 10%;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+align-items:center;
+}
+
+.about-text h2{
+color:#2563eb;
+margin-bottom:20px;
+}
+
+.about-text p{
+line-height:1.8;
+}
+
+.about-image img{
+width:100%;
+max-width:400px;
+display:block;
+margin:auto;
+}
+
+.mission{
+background:white;
+padding:70px 10%;
+text-align:center;
+}
+
+.mission h2{
+color:#2563eb;
+margin-bottom:15px;
+}
+
+.values{
+padding:80px 10%;
+}
+
+.values h2{
+text-align:center;
+margin-bottom:40px;
+color:#2563eb;
+}
+
+.value-container{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+}
+
+.value-box{
+background:white;
+padding:30px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+transition:.4s;
+}
+
+.value-box:hover{
+transform:translateY(-10px);
+}
+
+.value-box i{
+font-size:40px;
+color:#2563eb;
+margin-bottom:15px;
+}
+
+.stats{
+background:#000;
+padding:70px 10%;
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+text-align:center;
+}
+
+.stat-box h2{
+color:#2563eb;
+font-size:40px;
+}
+
+.stat-box p{
+color:white;
+}
+
+.cta{
+padding:80px 10%;
+text-align:center;
+}
+
+.cta h2{
+margin-bottom:15px;
+}
+
+.shop-btn{
+display:inline-block;
+margin-top:20px;
+padding:15px 35px;
+background:#2563eb;
+color:white;
+text-decoration:none;
+border-radius:30px;
+font-weight:bold;
+}
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+/* ==========================
+   TABLETS (1024px and below)
+========================== */
+
+@media screen and (max-width:1024px){
+
+.about-section{
+    padding:60px 5%;
+    gap:30px;
+}
+
+.hero-content h1{
+    font-size:2.5rem;
+}
+
+.value-container{
+    grid-template-columns:
+    repeat(2,1fr);
+}
+
+.stats{
+    grid-template-columns:
+    repeat(2,1fr);
+}
+
+}
+
+
+/* ==========================
+   MOBILE DEVICES (768px)
+========================== */
+
+@media screen and (max-width:768px){
+
+.navbar{
+    flex-direction:column;
+    gap:15px;
+    text-align:center;
+}
+
+.nav-links{
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.hero{
+    height:50vh;
+    padding:20px;
+}
+
+.hero-content h1{
+    font-size:2rem;
+}
+
+.hero-content p{
+    font-size:1rem;
+}
+
+.about-section{
+    grid-template-columns:1fr;
+    text-align:center;
+    padding:50px 20px;
+}
+
+.about-image img{
+    max-width:250px;
+}
+
+.mission{
+    padding:50px 20px;
+}
+
+.values{
+    padding:50px 20px;
+}
+
+.value-container{
+    grid-template-columns:1fr;
+}
+
+.stats{
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    padding:50px 20px;
+}
+
+.stat-box h2{
+    font-size:30px;
+}
+
+.cta{
+    padding:50px 20px;
+}
+
+.cta h2{
+    font-size:1.8rem;
+}
+
+.shop-btn{
+    width:100%;
+    max-width:300px;
+}
+
+}
+
+
+/* ==========================
+   SMALL PHONES (480px)
+========================== */
+
+@media screen and (max-width:480px){
+
+.logo{
+    flex-direction:column;
+}
+
+.logo img{
+    width:50px;
+    height:50px;
+}
+
+.logo h2{
+    font-size:18px;
+}
+
+.nav-links{
+    flex-direction:column;
+    gap:10px;
+}
+
+.hero{
+    height:45vh;
+}
+
+.hero-content h1{
+    font-size:1.5rem;
+}
+
+.hero-content p{
+    font-size:.9rem;
+}
+
+.about-text h2,
+.mission h2,
+.values h2{
+    font-size:1.5rem;
+}
+
+.about-text p,
+.mission p{
+    font-size:14px;
+    line-height:1.7;
+}
+
+.stats{
+    grid-template-columns:1fr;
+}
+
+.stat-box{
+    padding:10px;
+}
+
+.stat-box h2{
+    font-size:28px;
+}
+
+.cta h2{
+    font-size:1.5rem;
+}
+
+footer{
+    font-size:14px;
+    padding:15px;
+}
+
+}

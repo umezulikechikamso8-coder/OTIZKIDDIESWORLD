@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — OTIZKIDDIESWORLD</title>
+    <link rel="stylesheet" href="../css/checkout.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="/js/loader.js"></script>
+    <!-- REQUIRED: checkout.js calls window.OtizFirebase.* everywhere (placeOrder,
+         onAuthStateChanged, submitMessage, etc). That object only exists once this
+         script runs. Without it, orders silently fail to save — see the
+         console.warn in checkout.js's saveOrderToFirestore(). -->
+    <script type="module" src="/js/firebase-service.js"></script>
+</head>
+<body>
+
+<!-- ── ACCOUNT / SIGN OUT BAR ──────────────────────── -->
+<header class="account-bar">
+    <a href="home.html" class="logo-brand">OTIZKIDDIESWORLD</a>
+    <div class="acct-user">
+        <div class="acct-avatar" id="acctInitial">U</div>
+        <span class="acct-name" id="acctDisplayName">My Username</span>
+    </div>
+</header>
+
+<!-- ── TOAST ───────────────────────────────────────── -->
+<div class="toast" id="toast">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+    </svg>
+    <span id="toastMsg">Done!</span>
+</div>
+
+<!-- ── MAIN PAGE ───────────────────────────────────── -->
+<main class="checkout-page">
+    <h1>Secure Checkout</h1>
+    <p class="page-sub">Complete your order below — all fields marked * are required.</p>
+
+    <!-- Step progress -->
+    <div class="steps">
+        <div class="step active" id="step1">
+            <div class="step-num">1</div>
+            <span class="step-label">Your Info</span>
+        </div>
+        <div class="step" id="step2">
+            <div class="step-num">2</div>
+            <span class="step-label">Payment</span>
+        </div>
+        <div class="step" id="step3">
+            <div class="step-num">3</div>
+            <span class="step-label">Review</span>
+        </div>
+        <div class="step" id="step4">
+            <div class="step-num">4</div>
+            <span class="step-label">Invoice</span>
+        </div>
+    </div>
+
+    <div class="checkout-container">
+
+        <!-- ── 1. PERSONAL INFO ─────────────────────── -->
+        <div class="checkout-card">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+                </svg>
+                Customer Information
+            </h2>
+            <div class="field-group">
+                <div class="field">
+                    <label for="fullname">Full Name *</label>
+                    <input type="text" id="fullname" placeholder="e.g. Amaka Johnson" required readonly>
+                </div>
+                <div class="field">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" placeholder="amaka@email.com" required readonly>
+                </div>
+                <div class="field">
+                    <label for="phone">Phone Number *</label>
+                 <input 
+  type="tel" 
+  id="phone" 
+  placeholder="8012345678" 
+  oninput="this.value = this.value.replace(/[^0-23456789]/g, '')" 
+  required>
+                </div>
+                <div class="field">
+                    <label for="address">Delivery Address *</label>
+                    <textarea id="address" placeholder="House number, street, city, state" required></textarea>
+                    <span class="input-note">We deliver across Nigeria. Include your nearest landmark.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── 2. PAYMENT METHOD ─────────────────────── -->
+        <div class="checkout-card">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/>
+                </svg>
+                Payment Method
+            </h2>
+
+            <div class="payment-methods">
+                <!-- <label class="payment-option" id="opt-card" for="payment-card" onclick="setTimeout(() => selectPayment('card'), 0)">
+                    <input type="radio" id="payment-card" name="payment" value="card" onchange="selectPayment('card')">
+                    <div>
+                        <div class="pay-label">Pay With Card</div>
+                        <div class="pay-sub">Visa, Mastercard, Verve — via Paystack</div>
+                    </div>
+                    <span class="pay-icon">💳</span>
+                </label> -->
+
+                <label class="payment-option" id="opt-transfer" for="payment-transfer" onclick="setTimeout(() => selectPayment('transfer'), 0)">
+                    <input type="radio" id="payment-transfer" name="payment" value="transfer" onchange="selectPayment('transfer')">
+                    <div>
+                        <div class="pay-label">Bank Transfer</div>
+                        <div class="pay-sub">Transfer directly to our OPay account</div>
+                    </div>
+                    <span class="pay-icon">🏦</span>
+                </label>
+            </div>
+
+            <div class="payment-status info" id="paymentStatusNotice">Select a payment method to continue.</div>
+
+            <!-- Bank Transfer Details -->
+            <div class="transfer-box" id="transferBox">
+                <h3>Transfer Details</h3>
+                <p><strong>Bank:</strong> OPay</p>
+                <p><strong>Account Number:</strong> 9036442495
+                    <button class="copy-account" onclick="copyAccount()" title="Copy account number">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="14" height="14">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75"/>
+                        </svg>
+                        Copy
+                    </button>
+                </p>
+                <p><strong>Account Name:</strong> OTIZKIDDIESWORLD</p>
+                <span class="receipt-label">Upload Payment Receipt (optional)</span>
+                <input type="file" id="receipt" accept="image/*,.pdf">
+                <button class="confirm-transfer-btn" id="transferBtn" onclick="confirmTransfer()">
+                    I Have Made Payment
+                </button>
+            </div>
+        </div>
+
+        <!-- ── 3. ORDER SUMMARY ──────────────────────── -->
+        <div class="checkout-card">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"/>
+                </svg>
+                Order Summary
+            </h2>
+
+            <div class="order-items" id="orderItems">
+                <div class="empty-order-state">Your cart is empty. Add items to see them here.</div>
+            </div>
+
+            <div class="order-totals">
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <span id="subtotalAmt">₦25,000</span>
+                </div>
+                <div class="total-row">
+                    <span>Delivery</span>
+                    <span>₦1,500</span>
+                </div>
+                <div class="total-row grand">
+                    <span>Total</span>
+                    <span id="grandTotal">₦26,500</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── 4. PLACE ORDER (card payment) ────────── -->
+        <div class="checkout-card">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Ready to Order?
+            </h2>
+            <p style="font-size:.88rem;color:#6b7280;margin-bottom:18px;line-height:1.6;">
+                Review your details above, then click below to complete your purchase. Your order will be processed immediately.
+            </p>
+            <button class="place-order-btn" onclick="placeOrder()" style="width:100%;justify-content:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+                </svg>
+                Place Order &amp; Pay Now
+            </button>
+        </div>
+
+        <!-- ── 5. INVOICE ────────────────────────────── -->
+        <div class="checkout-card invoice-card">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/>
+                </svg>
+                Your Invoice
+            </h2>
+
+            <!-- Printable invoice area -->
+            <div id="invoicePrintArea">
+                <div class="invoice-header">
+                    <div>
+                        <div class="invoice-brand">
+                            OTIZKIDDIESWORLD
+                            <span>Your trusted kids' fashion store</span>
+                        </div>
+                    </div>
+                    <div class="invoice-meta">
+                        <strong>Invoice #<span id="invoiceNum">INV-000000</span></strong><br>
+                        Date: <span id="invoiceDate">—</span><br>
+                        Status: <span id="invoiceStatus" style="color:#16a34a;font-weight:700;">Pending</span>
+                    </div>
+                </div>
+
+                <div class="invoice-divider"></div>
+
+                <div class="invoice-grid">
+                    <div class="invoice-info">
+                        <div class="invoice-section-title">Bill To</div>
+                        <p id="invName">—</p>
+                        <p id="invEmail">—</p>
+                        <p id="invPhone">—</p>
+                        <p id="invAddress">—</p>
+                    </div>
+                    <div class="invoice-info">
+                        <div class="invoice-section-title">Seller</div>
+                        <p>OTIZKIDDIESWORLD</p>
+                        <p>OPay: 9036442495</p>
+                        <p>Nigeria</p>
+                    </div>
+                </div>
+
+                <table class="invoice-table" id="invoiceTable">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoiceTableBody">
+                        <tr>
+                            <td colspan="4">No items yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="invoice-total-box">
+                    <div class="inv-total-row">
+                        <span>Subtotal</span>
+                        <span id="invSubtotal">₦25,000</span>
+                    </div>
+                    <div class="inv-total-row">
+                        <span>Delivery</span>
+                        <span>₦1,500</span>
+                    </div>
+                    <div class="inv-total-row inv-grand">
+                        <span>Grand Total</span>
+                        <span id="invTotal">₦26,500</span>
+                    </div>
+                </div>
+
+                <p class="invoice-note">
+                    Thank you for shopping with OTIZKIDDIESWORLD! 🎉<br>
+                    For questions, contact us on our social media pages.
+                </p>
+            </div><!-- /invoicePrintArea -->
+
+            <button class="download-btn" onclick="downloadInvoice()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+                </svg>
+                Download Invoice (PDF)
+            </button>
+        </div>
+
+    </div><!-- /checkout-container -->
+</main>
+
+<script>
+    const storedPaystackKey = localStorage.getItem("paystackPublicKey") || localStorage.getItem("paystackTestPublicKey") || "";
+    window.PAYSTACK_PUBLIC_KEY = window.PAYSTACK_PUBLIC_KEY || storedPaystackKey || "";
+</script>
+<script type="module" src="../js/checkout.js"></script>
+</body>
+
+</html>

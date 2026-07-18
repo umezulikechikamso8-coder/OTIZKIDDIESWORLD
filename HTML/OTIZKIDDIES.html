@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTIZKIDDIESWORLD</title>
+    <link rel="shortcut icon" href="/image/ChatGPT Image Jun 16, 2026, 05_14_02 PM.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/OTIZKIDDIES.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <script src="/js/loader.js"></script>
+    <script type="module">
+  import { getAnnouncement } from "/js/firebase-service.js";
+
+  // Hold a loader lock for as long as this fetch takes, so the overlay
+  // stays up until the real announcement text is in the DOM — instead
+  // of the loader hiding on window 'load' (images/CSS ready) while this
+  // async fetch is still in flight, leaving a blank banner flash.
+  const hasLoader = typeof window.showLoader === "function" && typeof window.hideLoader === "function";
+  if (hasLoader) window.showLoader();
+
+  getAnnouncement()
+    .then(text => {
+      const el = document.querySelector(".announcement-text");
+      if (el && text) el.textContent = text;
+    })
+    .catch(err => {
+      console.error("Failed to load announcement:", err);
+    })
+    .finally(() => {
+      if (hasLoader) window.hideLoader();
+    });
+</script>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="announcement">
+            <div class="announcement-text">
+                🎉 Welcome to OTIZKIDDIESWORLD • Trendy, Premium, Affordable & Wholesome • New Arrivals Available • Shop
+                Boys, Girls, Shoes, Bags & Accessories Today! 🎉
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/image/WhatsApp Image 2026-06-20 at 2.26.59 AM.jpeg" alt="OTIZKIDDIESWORLD Logo">
+                <span>OTIZKIDDIESWORLD</span>
+
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="/HTML/collection.html">Collection</a></li>
+                <li><a href="/HTML/aboutus.html">About</a></li>
+                <li><a href="/HTML/contact.html">Contact</a></li>
+                <li>
+                  <button id="signinBtn" class="auth-icon-btn" title="Sign In">
+                    <i class="fas fa-user"></i>
+                  </button>
+                </li>
+                <li>
+                  <button id="signupBtn" class="auth-icon-btn" title="Sign Up">
+                    <i class="fas fa-user-plus"></i>
+                  </button>
+                </li>
+                <li id="adminReturnItem" style="display:none;">
+                  <a href="/HTML/Otizadmin.html" class="admin-return-link">Admin</a>
+                </li>
+                <li id="userProfile" class="user-chip" style="display:none;">
+                  <span class="user-initial" id="homeUserInitial">U</span>
+                  <span id="currentUser" class="user-name"></span>
+                  <button id="logoutBtn" class="logout-btn" type="button" onclick="window.logoutUser && window.logoutUser()" title="Logout">Logout</button>
+                </li>
+
+                <li class="cartpart"> <a href="/HTML/otizcart.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <h1>Premium Fashion For Kids</h1>
+
+            <p>
+                Discover trendy, stylish and comfortable
+                fashion collections designed for every child.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="shop-btn">
+                    <a href="/HTML/collection.html">Shop Now</a>
+                </button>
+
+                <button class="catalog-btn">
+                    <a href="/HTML/collection.html">View Collection</a>
+                </button>
+            </div>
+
+            <div class="customers">
+
+                <div class="avatars">
+                    <img src="https://i.pravatar.cc/50?img=1">
+                    <img src="https://i.pravatar.cc/50?img=2">
+                    <img src="https://i.pravatar.cc/50?img=3">
+                </div>
+
+                <span>
+                    ⭐ 4.9 | 10K+ Happy Customers
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900">
+        </div>
+
+    </section>
+
+
+
+    <!-- FEATURED CATEGORIES -->
+
+    <section class="categories">
+
+        <h2>Shop By Category</h2>
+
+        <div class="category-grid">
+
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500">
+                <h3>Boys Fashion</h3>
+            </div>
+
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500">
+                <h3>Girls Fashion</h3>
+            </div>
+
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500">
+                <h3>Accessories</h3>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="feature-card">
+            <i class="fas fa-tshirt"></i>
+            <h3>Premium Quality</h3>
+        </div>
+
+        <div class="feature-card">
+            <i class="fas fa-truck"></i>
+            <h3>Fast Delivery</h3>
+        </div>
+
+        <div class="feature-card">
+            <i class="fas fa-tags"></i>
+            <h3>Affordable Prices</h3>
+        </div>
+    </section>
+
+    <!-- COLLECTION -->
+    <section class="collection" id="collection">
+
+        <h2>New Arrivals</h2>
+
+        <div class="products">
+
+            <div class="product">
+                <img src="/image/Baby Boys And Girls Clothing Set Spring Autumn Children Hooded Outerwear Tops Pants 2PCS Outfits Kids Teenage Costume Suit - Set E _ 110CM(3-4T).jpg"
+                    alt="Kids Casual Wear">
+                <h3>Kids Casual Wear</h3>
+                <p>₦12,000</p>
+                <button onclick="addToCart('Kids Casual Wear',12000)">
+                    Add To Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="/image/1 Pair Kids Slip-On Loafers, Leather Upper, Casual Shoes For Boys And Girls, Black Color, Suitable For Teenagers And Children, Low-Top, Comfortable Round Toe Design, Great For Casual Outfits And Daily Wear.jpg"
+                    alt="Luxury Outfit">
+                <h3>Luxury Outfit</h3>
+                <p>₦18,000</p>
+                <button onclick="addToCart('Luxury Outfit',18000)">
+                    Add To Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="/image/1_2_4pcs New Cartoon Cute Ice Cream Decor Children's Bracelet For Girls, Kids Beaded Accessory Wristband.jpg"
+                    alt="Weekend Fashion">
+                <h3>Weekend Fashion</h3>
+                <p>₦15,000</p>
+                <button onclick="addToCart('Weekend Fashion',15000)">
+                    Add To Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="/image/6pcs_Set Cute Cartoon Random Color Beads & Acrylic Bear Charm Bracelets, Suitable For Girls Daily Wear And Parties.jpg"
+                    alt="Weekend Fashion">
+                <h3>Weekend Fashion</h3>
+                <p>₦15,000</p>
+                <button onclick="addToCart('Weekend Fashion',15000)">
+                    Add To Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1514090458221-65bb69cf63e6?q=80&w=1200" alt="Weekend Fashion">
+                <h3>Weekend Fashion</h3>
+                <p>₦15,000</p>
+                <button onclick="addToCart('Weekend Fashion',15000)">
+                    Add To Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="/image/Amazon_com_ Bebé recién nacido Ropa de Verano….jpg" alt="Weekend Fashion">
+                <h3>Weekend Fashion</h3>
+                <p>₦15,000</p>
+                <button onclick="addToCart('Weekend Fashion',15000)">
+                    Add To Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="/image/Baby Boys And Girls Clothing Set Spring Autumn Children Hooded Outerwear Tops Pants 2PCS Outfits Kids Teenage Costume Suit - Set E _ 110CM(3-4T).jpg"
+                    alt="Weekend Fashion">
+                <h3>Weekend Fashion</h3>
+                <p>₦15,000</p>
+                <button onclick="addToCart('Weekend Fashion',15000)">
+                    Add To Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="/image/Chaussures _ Chaussures & talons femme.jpg" alt="Weekend Fashion">
+                <h3>Weekend Fashion</h3>
+                <p>₦15,000</p>
+                <button onclick="addToCart('Weekend Fashion',15000)">
+                    Add To Cart
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <img src="/image/WhatsApp Image 2026-06-20 at 2.26.59 AM.jpeg" alt="OTIZKIDDIESWORLD Logo">
+        <h3>OTIZKIDDIESWORLD</h3>
+
+        <p>Trendy, Premium, Affordable & Wholesome</p>
+
+        <div class="socials">
+            <a href="https://www.instagram.com/dollars_109?igsh=MWZ1ZXFwZWs2ZnFhYg%3D%3D&utm_source=qr" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/2349036442495" target="_blank"> <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.tiktok.com/@dollars_2?_r=1&_t=ZS-97M4Zr3LXev" target="_blank"><i
+                    class="fab fa-tiktok"></i>
+            </a>
+        </div>
+
+        <p class="copyright">
+            © 2026 OTIZKIDDIESWORLD. All Rights Reserved.
+        </p>
+    </footer>
+
+    <script src="/js/OTIZKIDDIES.js"></script>
+    <script type="module" src="/js/collection.js"></script>
+
+    <!-- Auth modals -->
+    <link rel="stylesheet" href="/css/auth-modals.css">
+
+    <div id="signinModal" class="auth-modal" aria-hidden="true">
+        <div class="auth-modal-content">
+            <button class="auth-close" id="closeSignin">&times;</button>
+            <h2>Sign In</h2>
+            <form id="signinForm">
+                <input type="email" id="signinEmail" placeholder="Email" required>
+                <input type="password" id="signinPassword" placeholder="Password" required>
+                <button type="submit" class="auth-submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signupModal" class="auth-modal" aria-hidden="true">
+        <div class="auth-modal-content">
+            <button class="auth-close" id="closeSignup">&times;</button>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <input type="text" id="signupName" placeholder="Full name" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <button type="submit" class="auth-submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="/js/auth-modals.js"></script>
+</body>
+
+</html>

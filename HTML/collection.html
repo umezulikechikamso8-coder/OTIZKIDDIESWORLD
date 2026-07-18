@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTIZKIDDIESWORLD Collections</title>
+
+    <link rel="stylesheet" href="/css/collection.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/auth-modals.css">
+    <script src="/js/loader.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+
+<a href="/HTML/OTIZKIDDIES.html" class="logo-area">
+    <img src="/image/WhatsApp Image 2026-06-20 at 2.26.59 AM.jpeg" alt="OTIZKIDDIESWORLD Logo">
+    <span>OTIZKIDDIESWORLD</span>
+</a>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+        </div>
+        <div class="header-actions">
+          <button id="signinBtn" class="auth-icon-btn" title="Sign In">
+            <i class="fas fa-user"></i>
+          </button>
+          <button id="signupBtn" class="auth-icon-btn" title="Sign Up">
+            <i class="fas fa-user-plus"></i>
+          </button>
+          <div id="userProfile" class="user-chip" style="display:none;">
+            <span class="user-initial" id="collectionUserInitial">U</span>
+            <span id="currentUser" class="user-name"></span>
+            <button id="logoutBtn" class="logout-btn" type="button" onclick="window.logoutUser && window.logoutUser()" title="Logout">Logout</button>
+          </div>
+        </div>
+        <div class="cart-icon">
+            <a href="/HTML/otizcart.html">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+
+    </header>
+
+    <section class="page-title">
+        <h1>Our Collections</h1>
+        <p>Premium Kids Fashion Collections</p>
+    </section>
+
+    <div class="filter-buttons">
+
+        <button onclick="filterProducts('all')">
+            All
+        </button>
+
+        <button onclick="filterProducts('boys')">
+            Boys
+        </button>
+
+        <button onclick="filterProducts('girls')">
+            Girls
+        </button>
+
+        <button onclick="filterProducts('shoes')">
+            Shoes
+        </button>
+
+        <button onclick="filterProducts('bags')">
+            Bags
+        </button>
+
+        <button onclick="filterProducts('accessories')">
+            Accessories
+        </button>
+
+    </div>
+
+    <!--
+      Products now render dynamically from Firestore via collection.js
+      (loadProducts() -> renderProducts()). If Firestore has no products
+      yet, collection.js falls back to its own built-in staticProducts
+      list automatically, so this section starts empty on purpose.
+    -->
+    <section class="products" id="productGrid"></section>
+
+    <footer>
+
+        <h3>OTIZKIDDIESWORLD</h3>
+
+        <p>
+            Premium Kids Fashion Store
+        </p>
+
+    </footer>
+
+    <script type="module" src="/js/collection.js"></script>
+
+    <div id="signinModal" class="auth-modal" aria-hidden="true">
+        <div class="auth-modal-content">
+            <button class="auth-close" id="closeSignin">&times;</button>
+            <h2>Sign In</h2>
+            <form id="signinForm">
+                <input type="email" id="signinEmail" placeholder="Email" required>
+                <input type="password" id="signinPassword" placeholder="Password" required>
+                <button type="submit" class="auth-submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="signupModal" class="auth-modal" aria-hidden="true">
+        <div class="auth-modal-content">
+            <button class="auth-close" id="closeSignup">&times;</button>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <input type="text" id="signupName" placeholder="Full name" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <button type="submit" class="auth-submit">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="/js/auth-modals.js"></script>
+
+</body>
+
+</html>
