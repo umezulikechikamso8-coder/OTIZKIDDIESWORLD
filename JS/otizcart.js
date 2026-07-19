@@ -130,14 +130,14 @@ async function checkout() {
 
   if (!window.currentUser) {
     if (confirm("Please sign in before you checkout. Go to Sign In page?")) {
-      window.location.href = "/HTML/signin.html";
+      window.location.href = "../HTML/signin.html";
     }
     return;
   }
 
   try {
     saveCart();
-    window.location.href = "/HTML/checkout.html";
+    window.location.href = "../HTML/checkout.html";
   } catch (error) {
     showToast(error.message || "Unable to open checkout.");
   }
