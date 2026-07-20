@@ -49,7 +49,7 @@ if (signupForm) {
     try {
       await createUserAccount({ name, email, password: pass, phone, file: null });
       alert("Account Created Successfully!");
-      window.location.href = "/HTML/OTIZKIDDIES.html";
+      window.location.href = "/HTML/index.html";
     } catch (error) {
       console.error('Signup error', error);
       alert((error.code ? error.code + ': ' : '') + (error.message || "Unable to create account."));

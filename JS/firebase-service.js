@@ -3,7 +3,7 @@ const CDN_BASE = 'https://www.gstatic.com/firebasejs/11.0.0';
 let initializeApp, getAuth, vendorOnAuthStateChanged, signOut, signInWithEmailAndPassword,
   createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail,
   RecaptchaVerifier, signInWithPhoneNumber, updateProfile, setPersistence, browserLocalPersistence;
-let getFirestore, doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc, collection, getDocs, serverTimestamp;
+let getFirestore, doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc, collection, getDocs, serverTimestamp, onSnapshot;
 let getStorage, ref, uploadBytes, getDownloadURL;
 
 async function loadFirebaseModules(){
@@ -17,7 +17,7 @@ async function loadFirebaseModules(){
     createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail,
     RecaptchaVerifier, signInWithPhoneNumber, updateProfile, setPersistence, browserLocalPersistence } = authMod);
 
-  ({ getFirestore, doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc, collection, getDocs, serverTimestamp } = fsMod);
+  ({ getFirestore, doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc, collection, getDocs, serverTimestamp, onSnapshot } = fsMod);
 
   ({ getStorage, ref, uploadBytes, getDownloadURL } = stMod);
 
@@ -302,6 +302,29 @@ async function getOrders() {
   return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
+// Live order feed for the admin panel. The first snapshot fires an "added"
+// change for every existing order — that burst is swallowed so callback
+// only fires for orders placed after the listener attaches.
+function listenForNewOrders(callback) {
+  const ordersCollection = collection(db, "orders");
+  let isFirstSnapshot = true;
+  return onSnapshot(
+    ordersCollection,
+    (snapshot) => {
+      if (isFirstSnapshot) {
+        isFirstSnapshot = false;
+        return;
+      }
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          callback({ id: change.doc.id, ...change.doc.data() });
+        }
+      });
+    },
+    (err) => console.error("Live order listener failed:", err)
+  );
+}
+
 async function getUsers() {
   const usersCollection = collection(db, "users");
   const snapshot = await getDocs(usersCollection);
@@ -375,6 +398,7 @@ window.OtizFirebase = {
   deleteProduct,
   uploadProductImage,
   getOrders,
+  listenForNewOrders,
   getUsers,
   updateOrderStatus,
   getAnnouncement,
@@ -407,6 +431,7 @@ export {
   deleteProduct,
   uploadProductImage,
   getOrders,
+  listenForNewOrders,
   getUsers,
   updateOrderStatus,
   getAnnouncement,

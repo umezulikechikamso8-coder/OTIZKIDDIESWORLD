@@ -3,7 +3,7 @@ import { signInEmail, onAuthStateChanged } from "./firebase-service.js";
 const ADMIN_EMAIL = "admin@otizkiddiesworld.com";
 const urlParams = new URLSearchParams(window.location.search);
 const isAdminLogin = urlParams.get("admin") === "1";
-const redirectTarget = "/HTML/OTIZKIDDIES.html";
+const redirectTarget = "/HTML/index.html";
 const adminRedirectTarget = "/HTML/Otizadmin.html";
 
 const togglePassword = document.getElementById("togglePassword");

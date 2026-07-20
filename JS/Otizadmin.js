@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
             addProduct,
             deleteProduct,
             getOrders,
+            listenForNewOrders,
             updateOrderStatus,
             getAnnouncement,
             setAnnouncement,
@@ -130,6 +131,106 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         } catch (err) {
             console.error("Auth check failed:", err);
+        }
+
+        // --- LIVE NEW-ORDER NOTIFICATIONS ---
+        // Bell badge + toast + sound fire the instant a new order document
+        // is added to Firestore, without the admin needing to refresh.
+        const notifBell = document.getElementById("notifBell");
+        const notifBadge = document.getElementById("notifBadge");
+        let unseenOrders = 0;
+
+        function updateNotifBadge() {
+            if (!notifBadge) return;
+            if (unseenOrders > 0) {
+                notifBadge.textContent = unseenOrders > 99 ? "99+" : String(unseenOrders);
+                notifBadge.style.display = "block";
+            } else {
+                notifBadge.style.display = "none";
+            }
+        }
+
+        function showOrderToast(order) {
+            const name = order.customer?.name || "A customer";
+            const total = Number(order.total || 0).toLocaleString();
+            const toast = document.createElement("div");
+            toast.innerHTML = `<i class="fas fa-bell"></i>&nbsp; New order from <strong>${name}</strong> — ₦${total}`;
+            Object.assign(toast.style, {
+                position: "fixed",
+                right: "20px",
+                bottom: "20px",
+                padding: "14px 18px",
+                background: "#15161A",
+                color: "#fff",
+                borderRadius: "10px",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+                zIndex: "9999",
+                fontSize: "0.9rem",
+                maxWidth: "320px"
+            });
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 5000);
+        }
+
+        function playNotifSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = "sine";
+                osc.frequency.value = 880;
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.4);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.4);
+            } catch (err) {
+                console.warn("Notification sound failed:", err);
+            }
+        }
+
+        // Native OS/browser notification so an order still gets noticed if
+        // the admin has switched to another tab or window.
+        if ("Notification" in window && Notification.permission === "default") {
+            Notification.requestPermission();
+        }
+
+        function showBrowserNotification(order) {
+            if (!("Notification" in window) || Notification.permission !== "granted") return;
+            if (document.visibilityState === "visible") return;
+            const name = order.customer?.name || "A customer";
+            const total = Number(order.total || 0).toLocaleString();
+            new Notification("New OTIZKIDDIESWORLD order", {
+                body: `${name} just ordered — ₦${total}`
+            });
+        }
+
+        if (notifBell) {
+            notifBell.addEventListener("click", () => {
+                unseenOrders = 0;
+                updateNotifBadge();
+                const ordersLink = document.querySelector('.sidebar-menu a[data-tab="orders"]');
+                if (ordersLink) activateTab("orders", ordersLink);
+            });
+        }
+
+        try {
+            listenForNewOrders((order) => {
+                unseenOrders += 1;
+                updateNotifBadge();
+                showOrderToast(order);
+                playNotifSound();
+                showBrowserNotification(order);
+                if (notifBell) {
+                    notifBell.classList.remove("is-ringing");
+                    void notifBell.offsetWidth; // restart the animation on back-to-back orders
+                    notifBell.classList.add("is-ringing");
+                }
+                renderOrdersTable();
+            });
+        } catch (err) {
+            console.error("Failed to start live order listener:", err);
         }
 
         // --- ORDERS TABLE (Firestore) ---
